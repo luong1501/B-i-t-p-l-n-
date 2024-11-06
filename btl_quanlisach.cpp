@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include <cstdlib>
+#include <iomanip>
 using namespace std;
 
 // Struct luu tru thong tin cua moi quyensach
@@ -221,22 +222,35 @@ void List::clear() {
 }
 // Duyet danh sach sach
 void List::duyetsach() {
-	if (head == NULL) {
-        cout<<"Danh sach  rong "<<endl;
-        return ;
+    if (head == NULL) {
+        cout << "Danh sach rong" << endl;
+        return;
     }
-	cout<<"---------------------------------------------\n";
-    cout << "Danh sach cac quyen sach:\n";
+
+	cout << "------------------------------------------------------------------------------------------------------------\n";
+    cout << "| " << setw(5) << left << "ID"
+         << " | " << setw(20) << left << "Ten sach"
+         << " | " << setw(15) << left << "The loai"
+         << " | " << setw(20) << left << "Tac gia"
+         << " | " << setw(8) << left << "Nam XB"
+         << " | " << setw(8) << right << "Gia tien"
+         << " | " << setw(10) << left << "Trang thai" << " |\n";
+    cout << "------------------------------------------------------------------------------------------------------------\n";
+
     for (node *i = head; i != NULL; i = i->next) {
-        cout << "ID: " << i->data.id
-			 << ", Ten sach: " << i->data.tensach
-             << ", The loai: " << i->data.theloai
-             << ", Tac gia: " << i->data.tacgia
-             << ", Nam xuat ban: " << i->data.namxb
-             << ", Gia tien: " << i->data.giatien
-             << ", Trang thai: " << (i->data.isBorrowed ? "Da muon" : "Chua muon") << endl;
+        cout << "| " << setw(5) << left << i->data.id
+             << " | " << setw(20) << left << i->data.tensach
+             << " | " << setw(15) << left << i->data.theloai
+             << " | " << setw(20) << left << i->data.tacgia
+             << " | " << setw(8) << left << i->data.namxb
+             << " | " << setw(8) << right << i->data.giatien
+             << " | " << setw(10) << left << (i->data.isBorrowed ? "Da muon" : "Chua muon")
+             << " |\n";
     }
+    cout << "------------------------------------------------------------------------------------------------------------\n";
+
 }
+
 // Sap xep theo id
 void List::sapXepTheoID() {
     for (node *i = head; i != NULL; i = i->next) {
