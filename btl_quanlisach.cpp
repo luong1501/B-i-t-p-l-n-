@@ -641,7 +641,7 @@ int main() {
 	     		ifstream inFile;
 	    		inFile.open("text.txt", ios::in);
 	    		if (!inFile) {
-	       			 cout << "Khong the mo file de doc!" << endl;
+	       			cout << "Khong the mo file de doc!" << endl;
 
 	    		} else {
 	       		 manager.loadFromFile(inFile);
