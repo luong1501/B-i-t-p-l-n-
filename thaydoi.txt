@@ -1,1 +1,16 @@
-
+4,Doc vi bat ky ai,Tam ly,Tran Van D,2018,40000,0
+4,Doc vi bat ky ai,Tam ly,Tran Van D,2018,40000,0
+5,Kien thuc Excel,Kinh doanh,Le Van E,2019,55000,0
+5,Kien thuc Excel,Kinh doanh,Le Van E,2019,55000,0
+3,Lap trinh C++,Cong nghe,Nguyen Van C,2021,60000,0
+7,Nghe thuat giao tiep,Ky nang,Nguyen Van G,2017,45000,0
+7,Nghe thuat giao tiep,Ky nang,Nguyen Van G,2017,45000,0
+8,Nhung dieu ky di?u,Tieu thuyet,Tran Van H,2016,80000,0
+6,Tam ly hoc,Tam ly,Nguyen Van F,2020,30000,0
+6,Tam ly hoc,Tam ly,Nguyen Van F,2020,30000,0
+3,Lap trinh C++,Cong nghe,Nguyen Van C,2021,60000,0
+4,Doc vi bat ky ai,Tam ly,Tran Van D,2018,40000,0
+5,Kien thuc Excel,Kinh doanh,Le Van E,2019,55000,0
+6,Tam ly hoc,Tam ly,Nguyen Van F,2020,30000,0
+7,Nghe thuat giao tiep,Ky nang,Nguyen Van G,2017,45000,0
+8,Nhung dieu ky di?u,Tieu thuyet,Tran Van H,2016,80000,0

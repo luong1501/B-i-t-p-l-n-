@@ -327,9 +327,13 @@ void List::timKiemSachGiaLonHon(int GT) {
     for (node *i = head; i != NULL; i = i->next) {
         if (i->data.giatien > GT) {
             cout << "Sach co gia lon hon " << GT << ": " << endl;
-            cout << "ID: " << i->data.id << ", Ten sach: " << i->data.tensach
-                 << ", The loai: " << i->data.theloai << ", Tac gia: " << i->data.tacgia
-                 << ", Nam xuat ban: " << i->data.namxb << ", Gia tien: " << i->data.giatien << endl;
+		    cout << "ID: " << i->data.id << endl;
+			cout << "Ten sach: " << i->data.tensach << endl;
+        	cout << "The loai: " << i->data.theloai << endl;
+			cout << "Tac gia: " << i->data.tacgia << endl;
+            cout << "Nam xuat ban: " << i->data.namxb << endl;
+			cout << "Gia tien: " << i->data.giatien <<" VND"<< endl;
+			cout << "----------------------" << endl;
             found = true;
         }
     }
@@ -343,7 +347,6 @@ void List::timKiemTheoTuKhoa(string tuKhoa) {
     bool found = false;
     while (tmp != NULL) {
         if (tmp->data.tensach.find(tuKhoa) != string::npos) {
-            // In thông tin sách
             cout << "Thong tin sach:" << endl;
             cout << "ID: " << tmp->data.id << endl;
             cout << "Ten sach: " << tmp->data.tensach << endl;
@@ -565,12 +568,15 @@ int main() {
                 manager.sapXepTheoGiaTien();
                 break;
             case 13: {
-    			manager.sapXepTheoTenSach();
-
+            	string tensach;
+			    cout << "Nhap ten sach: ";
+				cin.ignore();
+                getline(cin, tensach);
+    		    manager.timKiemTheoTenSach(tensach);
 			    cout << "Press any key to continue...";
 			    cin.ignore();
 			    cin.get();
-    			break;
+			    break;
 			}
 
             case 14: {
@@ -620,7 +626,8 @@ int main() {
 			    outFile.open("thaydoi.txt", ios::out);
 			    if (!outFile) {
 			        cout << "Khong the mo file de ghi!" << endl;
-			    } else {
+			    }
+				else {
 			        manager.saveToFile(outFile);
 			    }
 			    outFile.close();
