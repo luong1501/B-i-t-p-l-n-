@@ -3,6 +3,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <iomanip>
+#include <queue>
 using namespace std;
 
 // Struct luu tru thong tin cua moi quyensach
@@ -14,6 +15,7 @@ struct book {
     string namxb;
     int giatien;
 	bool isBorrowed ;
+	queue<string> hangdoi;
     book() {
 
 	}
@@ -25,6 +27,7 @@ struct book {
         this->namxb = namxb;
         this->giatien = giatien;
         this->isBorrowed = false; // Mac dinh la sach chua duoc muon
+      
     }
 };
 
@@ -60,7 +63,7 @@ public:
     void timKiemTheoTenSach(string tensach);
     void timKiemSachGiaLonHon(int GT);
     void timKiemTheoTuKhoa(string tuKhoa);
-    void borrowBook(string tensach);
+    void borrowBook(string tensach, string nguoimuon);
     void returnBook(string tensach);
     void saveToFile(ofstream& outFile);
     void loadFromFile(ifstream& inFile);
@@ -365,42 +368,48 @@ void List::timKiemTheoTuKhoa(string tuKhoa) {
 }
 
 
-// Ham muon sach
-void List::borrowBook(string tensach) {
-    node* tmp = head;
-    while (tmp != NULL) {
-        if (tmp->data.tensach == tensach) {
-            if (tmp->data.isBorrowed) {
-                cout << "Sach da duoc muon!" << endl;
-                return;
-            } else {
-                tmp->data.isBorrowed = true;
-                cout << "Xin chuc mung! Muon sach '" << tmp->data.tensach << "' thanh cong." << endl;
-                return;
+void List::borrowBook(string tensach, string nguoimuon) {
+        node* current = head;
+        while (current != NULL) {
+            if (current->data.tensach == tensach) {
+                if (current->data.isBorrowed) {
+                    current->data.hangdoi.push(nguoimuon);
+                    cout << "Sach hien tai da duoc muon. Ban " << nguoimuon << " da duoc them vao danh sach cho." << endl;
+                } else {
+                    current->data.isBorrowed = true;
+                    cout << "Xin chuc mung, ban " << nguoimuon << " da muon thanh cong sach '" << current->data.tensach << "'." << endl;
                 }
+                return;
             }
-     	tmp = tmp->next;
+            current = current->next;
         }
-    cout << "Khong tim thay sach co ten '" << tensach << "'." << endl;
-}
-// Ham tra sach
+        cout << "Khong tim thay sach co ten '" << tensach << "'." << endl;
+    }
+
 void List::returnBook(string tensach) {
-    node* tmp = head;
-    while (tmp != NULL) {
-        if (tmp->data.tensach == tensach) {
-            if (!tmp->data.isBorrowed) {
-                cout << "Sach hien khong duoc muon!" << endl;
-                return;
-            } else {
-                tmp->data.isBorrowed = false;
-                cout << "Tra sach '" << tmp->data.tensach << "' thanh cong." << endl;
-                return;
+        node* current = head;
+        while (current != NULL) {
+            if (current->data.tensach == tensach) {
+                if (!current->data.isBorrowed) {
+                    cout << "Sach hien khong duoc muon!" << endl;
+                } else {
+                    current->data.isBorrowed = false;
+                    cout << "Ban da tra sach '" << current->data.tensach << "' thanh cong." << endl;
+
+                    if (!current->data.hangdoi.empty()) {
+                        string nguoitieptheo = current->data.hangdoi.front();
+                        current->data.hangdoi.pop();
+                        current->data.isBorrowed = true;
+                        cout << "Ban " << nguoitieptheo  << " la nguoi tiep theo va da duoc muon sach '" << current->data.tensach << "'." << endl;
+                    }
                 }
+                return;
             }
-        tmp = tmp->next;
+            current = current->next;
         }
-    cout << "Khong tim thay sach co ten '" << tensach << "'." << endl;
-}
+        cout << "Khong tim thay sach co ten '" << tensach << "'." << endl;
+    }
+
 // Ham luu danh sach vao file
 void List::saveToFile(ofstream& outFile) {
     for (node* i = head; i != NULL; i = i->next) {
@@ -601,10 +610,13 @@ int main() {
             }
             case 16: {
                 string tensach;
+                string borrowerName ;
                 cout << "Nhap ten sach de muon: ";
                 cin.ignore();
                 getline(cin, tensach);
-                manager.borrowBook(tensach);
+                cout<<"Nhap ten nguoi muon: ";
+                getline(cin, borrowerName);
+                manager.borrowBook(tensach, borrowerName);
                 cout << "Press any key to continue...";
                 cin.ignore();
                 cin.get();

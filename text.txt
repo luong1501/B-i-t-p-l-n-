@@ -3,5 +3,15 @@
 5,Kien thuc Excel,Kinh doanh,Le Van E,2019,55000,0
 6,Tam ly hoc,Tam ly,Nguyen Van F,2020,30000,0
 7,Nghe thuat giao tiep,Ky nang,Nguyen Van G,2017,45000,0
-8,Nhung dieu ky di?u,Tieu thuyet,Tran Van H,2016,80000,0
 20,Dieu ky,Tieu thuyet,Tran Van H,2016,80000,0
+13,Bi quyet thanh cong,Ky nang,Nguyen Van M,2020,75000,0
+17,Khoa hoc vui ve,Thieu nhi,Pham Thi O,2017,55000,0
+2,Tu hoc lap trinh,Cong nghe,Nguyen Van P,2021,62000,0
+15,Ky nang song,Ky nang,Tran Van Q,2016,30000,0
+11,Lich su the gioi,Lich su,Le Thi R,2020,45000,0
+19,Hanh trang vao doi,Ky nang,Nguyen Van S,2015,52000,0
+22,Suc khoe va doi song,Y hoc,Pham Van T,2019,78000,0
+6,Nghe thuat dan dao,Tu duy,Tran Thi U,2021,86000,0
+14,Van hoc dan gian,Tieu thuyet,Nguyen Van V,2018,42000,0
+18,Hoa hoc co ban,Khoa hoc,Tran Thi X,2019,53000,0
+10,Toan hoc vui ve,Thieu nhi,Pham Van Y,2017,60000,0
