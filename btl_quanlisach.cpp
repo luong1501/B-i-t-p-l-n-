@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <iomanip>
 #include <queue>
+#include <limits>
 using namespace std;
 
 // Struct luu tru thong tin cua moi quyensach
@@ -15,7 +16,7 @@ struct book {
     string namxb;
     int giatien;
 	bool isBorrowed ;
-	queue<string> hangdoi;
+	queue<string> hangdoi;//hang doi de luu lai nguoi muon sach
     book() {
 
 	}
@@ -257,14 +258,11 @@ void List::duyetsach() {
 // Sap xep theo id
 void List::sapXepTheoID() {
     for (node *i = head; i != NULL; i = i->next) {
-        node *minNode = i;
         for (node *j = i->next; j != NULL; j = j->next) {
-            if (minNode->data.id > j->data.id) {
-                minNode = j;
+            if (i->data.id > j->data.id) {
+            	swap(i->data,j->data);
             }
-        }
-        if (minNode != i) {
-            swap(i->data, minNode->data);
+
         }
     }
 }
@@ -369,46 +367,46 @@ void List::timKiemTheoTuKhoa(string tuKhoa) {
 
 
 void List::borrowBook(string tensach, string nguoimuon) {
-        node* current = head;
-        while (current != NULL) {
-            if (current->data.tensach == tensach) {
-                if (current->data.isBorrowed) {
-                    current->data.hangdoi.push(nguoimuon);
-                    cout << "Sach hien tai da duoc muon. Ban " << nguoimuon << " da duoc them vao danh sach cho." << endl;
-                } else {
-                    current->data.isBorrowed = true;
-                    cout << "Xin chuc mung, ban " << nguoimuon << " da muon thanh cong sach '" << current->data.tensach << "'." << endl;
-                }
-                return;
+	node* tmp = head;
+    while (tmp != NULL) {
+        if (tmp->data.tensach == tensach) {
+            if (tmp->data.isBorrowed) {
+                tmp->data.hangdoi.push(nguoimuon);
+                cout << "Sach hien tai da duoc muon. Ban " << nguoimuon << " da duoc them vao danh sach cho." << endl;
+            } else {
+                tmp->data.isBorrowed = true;
+                cout << "Xin chuc mung, ban " << nguoimuon << " da muon thanh cong sach '" << tmp->data.tensach << "'." << endl;
             }
-            current = current->next;
+            return;
         }
-        cout << "Khong tim thay sach co ten '" << tensach << "'." << endl;
+        tmp = tmp->next;
     }
+    cout << "Khong tim thay sach co ten '" << tensach << "'." << endl;
+}
 
 void List::returnBook(string tensach) {
-        node* current = head;
-        while (current != NULL) {
-            if (current->data.tensach == tensach) {
-                if (!current->data.isBorrowed) {
-                    cout << "Sach hien khong duoc muon!" << endl;
-                } else {
-                    current->data.isBorrowed = false;
-                    cout << "Ban da tra sach '" << current->data.tensach << "' thanh cong." << endl;
-
-                    if (!current->data.hangdoi.empty()) {
-                        string nguoitieptheo = current->data.hangdoi.front();
-                        current->data.hangdoi.pop();
-                        current->data.isBorrowed = true;
-                        cout << "Ban " << nguoitieptheo  << " la nguoi tiep theo va da duoc muon sach '" << current->data.tensach << "'." << endl;
-                    }
-                }
-                return;
+    node* tmp = head;
+    while (tmp != NULL) {
+        if (tmp->data.tensach == tensach) {
+            if (!tmp->data.isBorrowed) {
+                cout << "Sach hien khong duoc muon!" << endl;
             }
-            current = current->next;
+			else {
+                tmp->data.isBorrowed = false;
+                cout << "Ban da tra sach '" << tmp->data.tensach << "' thanh cong." << endl;
+                if (!tmp->data.hangdoi.empty()) {
+                    string nguoitieptheo = tmp->data.hangdoi.front();
+                    tmp->data.hangdoi.pop();
+                    tmp->data.isBorrowed = true;
+                    cout << "Ban " << nguoitieptheo  << " la nguoi tiep theo va da duoc muon sach '" << tmp->data.tensach << "'." << endl;
+                }
+            }
+            return;
+            }
+        tmp = tmp->next;
         }
-        cout << "Khong tim thay sach co ten '" << tensach << "'." << endl;
-    }
+    cout << "Khong tim thay sach co ten '" << tensach << "'." << endl;
+}
 
 // Ham luu danh sach vao file
 void List::saveToFile(ofstream& outFile) {
@@ -471,6 +469,20 @@ void showMenu() {
     cout << "------------------------------------ "<<endl;
     cout << "Chon tuy chon: ";
 }
+// ham kiem tra xem id co duoc nhap hop le hay ko
+void nhapIDvaKTtinhhople(int &id) {
+    while (true) {
+        cout << "Nhap ID sach: ";
+        cin >> id;
+        if (cin.fail() || id < 0) {
+            cout << "ID phai la mot so nguyen duong. Vui long nhap lai.\n";
+            cin.clear(); // xoa trang thai con lai cua cin
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // bo qua cac ki tu con lai trong dong
+        } else {
+            break;
+        }
+    }
+}
 
 int main() {
     List manager;
@@ -484,8 +496,7 @@ int main() {
             case 1: {
                 int id, giatien;
                 string tensach, theloai, tacgia, namxb;
-                cout << "Nhap ID sach: ";
-                cin >> id;
+				nhapIDvaKTtinhhople(id);
                 cout << "Nhap ten sach: ";
                 cin.ignore();
                 getline(cin, tensach);
@@ -503,8 +514,7 @@ int main() {
             case 2: {
                 int id, giatien;
                 string tensach, theloai, tacgia, namxb;
-                cout << "Nhap ID sach: ";
-                cin >> id;
+				nhapIDvaKTtinhhople(id);
                 cout << "Nhap ten sach: ";
                 cin.ignore();
                 getline(cin, tensach);
@@ -522,8 +532,7 @@ int main() {
             case 3: {
                 int id, giatien, pos;
                 string tensach, theloai, tacgia, namxb;
-                cout << "Nhap ID sach: ";
-                cin >> id;
+				nhapIDvaKTtinhhople(id);
                 cout << "Nhap ten sach: ";
                 cin.ignore();
                 getline(cin, tensach);
@@ -542,7 +551,7 @@ int main() {
             }
             case 4:
                 manager.sosach_hienco();
-                 cout << "Press any key to continue...";
+                cout << "Press any key to continue...";
                 cin.ignore();
                 cin.get();
                 break;
